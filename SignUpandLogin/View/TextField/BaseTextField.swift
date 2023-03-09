@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 
+
 class BaseTextField: UITextField {
     let padding = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 0)
     
@@ -19,6 +20,18 @@ class BaseTextField: UITextField {
     }
     override open func editingRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: padding)
+    }
+    
+    @objc func doneButtonTapped() {
+        self.resignFirstResponder()
+    }
+    
+    func setupToolBar() {
+        let toolbar:UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: UIScreen.main.bounds.width, height: 30))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonTapped))
+        toolbar.setItems([flexibleSpace, doneButton], animated: false)
+        self.inputAccessoryView = toolbar
     }
     
     public func addBottomLineTextField() {
@@ -63,6 +76,7 @@ class BaseTextField: UITextField {
         
         addBottomLineTextField()
         addSymbolTextField(symbolName)
+        setupToolBar()
     }
     
     required init?(coder: NSCoder) {

@@ -20,6 +20,7 @@ class LoginViewController: UIViewController {
     let loginLabel: UILabel = {
         let label = UILabel()
         label.text = "Login"
+        label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 32, weight: .semibold)
         return label
     }()
@@ -30,7 +31,7 @@ class LoginViewController: UIViewController {
     var loginStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.distribution = UIStackView.Distribution.equalSpacing
+        stackView.distribution = .equalSpacing
         stackView.spacing = 60
         return stackView
     }()
@@ -68,6 +69,7 @@ class LoginViewController: UIViewController {
         let button = UIButton()
         let buttonFont = UIFont.systemFont(ofSize: 15, weight: .bold)
         let buttonAttributes = [NSAttributedString.Key.font: buttonFont]
+        button.addTarget(self, action:#selector(goToLoginViewController), for: .touchUpInside)
         button.setAttributedTitle(NSAttributedString(string: "Register", attributes: buttonAttributes), for: .normal)
         button.setTitleColor(.mainColor, for: .normal)
         return button
@@ -81,12 +83,33 @@ class LoginViewController: UIViewController {
         return stackView
     }()
     
+    
+    @objc func goToLoginViewController() {
+        let signUpViewController = SingupViewController()
+        signUpViewController.modalPresentationStyle = .fullScreen
+        present(signUpViewController, animated: true)
+    }
+    
     func setupStackViews() {
         loginStackView.addArrangedSubview(emailTextField)
         loginStackView.addArrangedSubview(passwordTextField)
         
         registerStackView.addArrangedSubview(registerLabel)
         registerStackView.addArrangedSubview(registerButton)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= (keyboardSize.height - (view.frame.height) * 0.1)
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
     }
     
     func setupConstarints() {
@@ -132,20 +155,6 @@ class LoginViewController: UIViewController {
         }
     }
     
-    @objc func doneButtonAction() {
-        self.view.endEditing(true)
-    }
-    
-    func setupToolBar() {
-        let toolbar:UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonAction))
-        toolbar.setItems([flexSpace, doneBtn], animated: false)
-        toolbar.sizeToFit()
-        self.emailTextField.inputAccessoryView = toolbar
-        self.passwordTextField.inputAccessoryView = toolbar
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(imageViewLogin)
@@ -155,11 +164,15 @@ class LoginViewController: UIViewController {
         view.addSubview(loginWithLabel)
         view.addSubview(loginWithStackView)
         view.addSubview(registerStackView)
-        setupToolBar()
     }
     
     override func viewDidLayoutSubviews() {
         setupConstarints()
         setupStackViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 }
