@@ -7,9 +7,10 @@
 
 import UIKit
 
-
-class LoginViewController: UIViewController {
-    let imageViewLogin: UIImageView = {
+final class LoginViewController: UIViewController {
+    let viewModelLogin = LoginViewModel()
+    
+    private let imageViewLogin: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "login")
         imageView.layer.masksToBounds = true
@@ -17,7 +18,7 @@ class LoginViewController: UIViewController {
         return imageView
     }()
     
-    let loginLabel: UILabel = {
+    private let loginLabel: UILabel = {
         let label = UILabel()
         label.text = "Login"
         label.textColor = .black
@@ -25,10 +26,10 @@ class LoginViewController: UIViewController {
         return label
     }()
     
-    let emailTextField = BaseTextField(placeHolder: "Email", symbolName: "envelope", isSecureText: false)
+    private let emailTextField = BaseTextField(placeHolder: "Email", symbolName: "envelope", isSecureText: false)
     let passwordTextField = BaseTextField(placeHolder: "Password", symbolName: "key.horizontal", isSecureText: true)
     
-    var loginStackView: UIStackView = {
+    private var loginStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
@@ -36,7 +37,7 @@ class LoginViewController: UIViewController {
         return stackView
     }()
     
-    let loginButton: UIButton = {
+    private let loginButton: UIButton = {
         let button = UIButton()
         let buttonFont = UIFont.systemFont(ofSize: 18, weight: .bold)
         let buttonAttributes = [NSAttributedString.Key.font: buttonFont]
@@ -47,7 +48,7 @@ class LoginViewController: UIViewController {
         return button
     }()
     
-    let loginWithLabel: UILabel = {
+    private let loginWithLabel: UILabel = {
         let label = UILabel()
         label.text = "Or login with..."
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
@@ -55,7 +56,7 @@ class LoginViewController: UIViewController {
         return label
     }()
     
-    let loginWithStackView = LoginWithUIStackView()
+    private let loginWithStackView = LoginWithUIStackView()
     
     let registerLabel: UILabel = {
         let label = UILabel()
@@ -65,7 +66,7 @@ class LoginViewController: UIViewController {
         return label
     }()
     
-    let registerButton: UIButton = {
+    private let registerButton: UIButton = {
         let button = UIButton()
         let buttonFont = UIFont.systemFont(ofSize: 15, weight: .bold)
         let buttonAttributes = [NSAttributedString.Key.font: buttonFont]
@@ -75,7 +76,7 @@ class LoginViewController: UIViewController {
         return button
     }()
     
-    let registerStackView: UIStackView = {
+    private let registerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fill
@@ -157,6 +158,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModelLogin.delegate = self
         view.addSubview(imageViewLogin)
         view.addSubview(loginLabel)
         view.addSubview(loginStackView)
@@ -174,5 +176,17 @@ class LoginViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+}
+
+extension LoginViewController: LoginDelegate {
+    var mail: String {
+        guard let mail = emailTextField.text else {return ""}
+        return mail
+    }
+    
+    var password: String {
+        guard let password = passwordTextField.text else {return ""}
+        return password
     }
 }

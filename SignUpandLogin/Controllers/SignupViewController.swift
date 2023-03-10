@@ -8,9 +8,10 @@
 import UIKit
 import SnapKit
 
-class SingupViewController: UIViewController {
-
-    let signUpLabel: UILabel = {
+final class SingupViewController: UIViewController {
+    let viewModelSignUp = SignUpViewModel()
+    
+    private let signUpLabel: UILabel = {
         let label = UILabel()
         label.text = "Sign Up"
         label.textColor = .black
@@ -18,11 +19,12 @@ class SingupViewController: UIViewController {
         return label
     }()
     
-    let nickNameTextField = BaseTextField(placeHolder: "Nickname", symbolName: "person", isSecureText: false)
-    let emailTextField = BaseTextField(placeHolder: "Email", symbolName: "envelope", isSecureText: false)
-    let passwordTextField = BaseTextField(placeHolder: "Password", symbolName: "key.horizontal", isSecureText: true)
+    private let userNameTextField = BaseTextField(placeHolder: "Username", symbolName: "person", isSecureText: false)
+    private let emailTextField = BaseTextField(placeHolder: "Email", symbolName: "envelope", isSecureText: false)
+    private let passwordTextField = BaseTextField(placeHolder: "Password", symbolName: "key.horizontal", isSecureText: true)
+
     
-    var signUpStackView: UIStackView = {
+    private var signUpStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
@@ -30,10 +32,11 @@ class SingupViewController: UIViewController {
         return stackView
     }()
     
-    let signUpButton: UIButton = {
+    private let signUpButton: UIButton = {
         let button = UIButton()
         let buttonFont = UIFont.systemFont(ofSize: 18, weight: .bold)
         let buttonAttributes = [NSAttributedString.Key.font: buttonFont]
+        button.addTarget(self, action:#selector(SingUpButtonTapped), for: .touchUpInside)
         button.setAttributedTitle(NSAttributedString(string: "Sign Up", attributes: buttonAttributes), for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .mainColor
@@ -41,7 +44,7 @@ class SingupViewController: UIViewController {
         return button
     }()
     
-    let signUpWithLabel: UILabel = {
+    private let signUpWithLabel: UILabel = {
         let label = UILabel()
         label.text = "Or sign up with..."
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
@@ -49,9 +52,9 @@ class SingupViewController: UIViewController {
         return label
     }()
     
-    let signUpWithStackView = LoginWithUIStackView()
+    private let signUpWithStackView = LoginWithUIStackView()
     
-    let loginLabel: UILabel = {
+    private let loginLabel: UILabel = {
         let label = UILabel()
         label.text = "Do you already have an account?"
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
@@ -59,7 +62,7 @@ class SingupViewController: UIViewController {
         return label
     }()
     
-    let loginButton: UIButton = {
+    private let loginButton: UIButton = {
         let button = UIButton()
         let buttonFont = UIFont.systemFont(ofSize: 15, weight: .bold)
         let buttonAttributes = [NSAttributedString.Key.font: buttonFont]
@@ -69,7 +72,7 @@ class SingupViewController: UIViewController {
         return button
     }()
     
-    let loginStackView: UIStackView = {
+    private let loginStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fill
@@ -82,8 +85,12 @@ class SingupViewController: UIViewController {
         dismiss(animated: true)
     }
     
+    @objc func SingUpButtonTapped() {
+        viewModelSignUp.signUp()
+    }
+    
     func setupStackViews() {
-        signUpStackView.addArrangedSubview(nickNameTextField)
+        signUpStackView.addArrangedSubview(userNameTextField)
         signUpStackView.addArrangedSubview(emailTextField)
         signUpStackView.addArrangedSubview(passwordTextField)
         
@@ -137,6 +144,7 @@ class SingupViewController: UIViewController {
         view.addSubview(signUpWithLabel)
         view.addSubview(signUpWithStackView)
         view.addSubview(loginStackView)
+        viewModelSignUp.delegate = self
     }
     
     override func viewDidLayoutSubviews() {
@@ -145,3 +153,19 @@ class SingupViewController: UIViewController {
     }
 }
 
+extension SingupViewController: SignUpDelegate {
+    var username: String {
+        guard let username = userNameTextField.text else {return ""}
+        return username
+    }
+    
+    var mail: String {
+        guard let mail = emailTextField.text else {return ""}
+        return mail
+    }
+    
+    var password: String {
+        guard let password = passwordTextField.text else {return ""}
+        return password
+    }
+}
