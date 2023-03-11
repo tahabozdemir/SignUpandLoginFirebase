@@ -27,12 +27,18 @@ extension SignUpViewModel: SignUpViewModelProtocol {
     func signUp() {
         guard let mail = delegate?.mail, mail.count > 0 else {return}
         guard let password = delegate?.password, password.count > 0 else {return}
-        Auth.auth().createUser(withEmail: mail, password: password) { result, error in
-            if let signUpError = error {
-                print(signUpError.localizedDescription)
-                return
+        guard let username = delegate?.username else {return}
+        let isUserNameUnique = false
+        checkUsernameIsUnique(username) { isUnique in
+            if isUnique {
+                Auth.auth().createUser(withEmail: mail, password: password) { result, error in
+                    if let signUpError = error {
+                        print(signUpError.localizedDescription)
+                        return
+                    }
+                    self.addUserDatabase(result)
+                }
             }
-            self.addUserDatabase(result)
         }
     }
     
@@ -41,17 +47,22 @@ extension SignUpViewModel: SignUpViewModelProtocol {
         guard let username = delegate?.username else {return}
         
         let databaseRef = Database.database().reference()
+        let data = ["username" : username]
+        let usersRef = databaseRef.child("users/\(userUID)")
+        usersRef.setValue(data)
+    }
+    
+    private func checkUsernameIsUnique(_ username: String, completion: @escaping (Bool) -> Void) {
+        let databaseRef = Database.database().reference()
         let usernameQuery = databaseRef.child("users").queryOrdered(byChild: "username").queryEqual(toValue: username)
         
-        usernameQuery.observeSingleEvent(of: .value) { snapshot in
-            if snapshot.exists() {
-                print("Error: Username already exists")
+        usernameQuery.observeSingleEvent(of: .value) { snapshotUsername in
+            if snapshotUsername.exists() {
+                completion(false)
+                return
             }
-            else {
-                let data = ["username" : username]
-                let usersRef = databaseRef.child("users/\(userUID)")
-                usersRef.setValue(data)
-            }
+            completion(true)
         }
     }
 }
+
