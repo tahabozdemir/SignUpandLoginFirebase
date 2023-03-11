@@ -14,6 +14,8 @@
 		0F8816F629BA1E8400EAA746 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8816F529BA1E8400EAA746 /* LoginViewModel.swift */; };
 		0F8816F829BA1E9400EAA746 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8816F729BA1E9400EAA746 /* SignUpViewModel.swift */; };
 		0F8816FA29BA1EAC00EAA746 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8816F929BA1EAC00EAA746 /* User.swift */; };
+		0F98CAD229BCF38800C6E3DA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F98CAD129BCF38800C6E3DA /* HomeViewController.swift */; };
+		0F98CAD629BCF71500C6E3DA /* MainUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F98CAD529BCF71500C6E3DA /* MainUIButton.swift */; };
 		0FAD1CB429B8C0D000F9ECF8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAD1CB329B8C0D000F9ECF8 /* LoginViewController.swift */; };
 		0FC8A63629B125C300045950 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC8A63529B125C300045950 /* AppDelegate.swift */; };
 		0FC8A63829B125C300045950 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC8A63729B125C300045950 /* SceneDelegate.swift */; };
@@ -31,6 +33,8 @@
 		0F8816F529BA1E8400EAA746 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0F8816F729BA1E9400EAA746 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		0F8816F929BA1EAC00EAA746 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		0F98CAD129BCF38800C6E3DA /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		0F98CAD529BCF71500C6E3DA /* MainUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUIButton.swift; sourceTree = "<group>"; };
 		0FAD1CB329B8C0D000F9ECF8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0FC8A63229B125C300045950 /* SignUpandLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SignUpandLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FC8A63529B125C300045950 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +70,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		0F98CAD329BCF50600C6E3DA /* UIButton */ = {
+			isa = PBXGroup;
+			children = (
+				0F98CAD529BCF71500C6E3DA /* MainUIButton.swift */,
+			);
+			path = UIButton;
+			sourceTree = "<group>";
+		};
 		0FAD1CAE29B8BF3100F9ECF8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -77,6 +89,7 @@
 		0FAD1CAF29B8BF3600F9ECF8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0F98CAD329BCF50600C6E3DA /* UIButton */,
 				0FF0D70529B91CF100D42D57 /* UIStackView */,
 				0FF0D70429B8FE4100D42D57 /* TextField */,
 				0FF0D6FC29B8D6E000D42D57 /* UIView */,
@@ -98,6 +111,7 @@
 			children = (
 				0FC8A63929B125C300045950 /* SignupViewController.swift */,
 				0FAD1CB329B8C0D000F9ECF8 /* LoginViewController.swift */,
+				0F98CAD129BCF38800C6E3DA /* HomeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -252,6 +266,7 @@
 				0FF0D70729B91D0F00D42D57 /* LoginWithUIStackView.swift in Sources */,
 				0F8816F829BA1E9400EAA746 /* SignUpViewModel.swift in Sources */,
 				0FC8A63A29B125C300045950 /* SignupViewController.swift in Sources */,
+				0F98CAD629BCF71500C6E3DA /* MainUIButton.swift in Sources */,
 				0FF0D70129B8DDB300D42D57 /* Extension+UIColor.swift in Sources */,
 				0FF0D6FE29B8D72400D42D57 /* BaseTextField.swift in Sources */,
 				0FF0D70329B8FD3F00D42D57 /* LoginWithUIView.swift in Sources */,
@@ -259,6 +274,7 @@
 				0FC8A63829B125C300045950 /* SceneDelegate.swift in Sources */,
 				0F8816F629BA1E8400EAA746 /* LoginViewModel.swift in Sources */,
 				0F8816FA29BA1EAC00EAA746 /* User.swift in Sources */,
+				0F98CAD229BCF38800C6E3DA /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

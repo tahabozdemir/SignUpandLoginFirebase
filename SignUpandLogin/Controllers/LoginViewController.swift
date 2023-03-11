@@ -37,14 +37,8 @@ final class LoginViewController: UIViewController {
         return stackView
     }()
     
-    private let loginButton: UIButton = {
-        let button = UIButton()
-        let buttonFont = UIFont.systemFont(ofSize: 18, weight: .bold)
-        let buttonAttributes = [NSAttributedString.Key.font: buttonFont]
-        button.setAttributedTitle(NSAttributedString(string: "Login", attributes: buttonAttributes), for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .mainColor
-        button.layer.cornerRadius = 10
+    private let loginButton: MainUIButton = {
+        let button = MainUIButton("Login")
         return button
     }()
     

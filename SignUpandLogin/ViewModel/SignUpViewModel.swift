@@ -28,7 +28,7 @@ extension SignUpViewModel: SignUpViewModelProtocol {
         guard let mail = delegate?.mail, mail.count > 0 else {return}
         guard let password = delegate?.password, password.count > 0 else {return}
         guard let username = delegate?.username else {return}
-        let isUserNameUnique = false
+        
         checkUsernameIsUnique(username) { isUnique in
             if isUnique {
                 Auth.auth().createUser(withEmail: mail, password: password) { result, error in

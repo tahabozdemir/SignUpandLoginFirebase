@@ -8,16 +8,17 @@
 import UIKit
 import SnapKit
 
-
 class BaseTextField: UITextField {
     let padding = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 0)
     
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: padding)
     }
+    
     override open func placeholderRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: padding)
     }
+    
     override open func editingRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: padding)
     }
@@ -59,7 +60,7 @@ class BaseTextField: UITextField {
         }
     }
     
-    init(placeHolder: String?=nil, symbolName: String, isSecureText: Bool) {
+    init(placeHolder: String? = nil, symbolName: String, isSecureText: Bool) {
         super.init(frame: CGRect.zero)
         let placeHolderAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
         font = UIFont.systemFont(ofSize: 15, weight: .regular)
@@ -81,9 +82,5 @@ class BaseTextField: UITextField {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func didAddSubview(_ subview: UIView) {
-        
     }
 }

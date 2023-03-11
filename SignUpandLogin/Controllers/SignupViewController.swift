@@ -32,15 +32,9 @@ final class SingupViewController: UIViewController {
         return stackView
     }()
     
-    private let signUpButton: UIButton = {
-        let button = UIButton()
-        let buttonFont = UIFont.systemFont(ofSize: 18, weight: .bold)
-        let buttonAttributes = [NSAttributedString.Key.font: buttonFont]
+    private let signUpButton: MainUIButton = {
+        let button = MainUIButton("Sign Up")
         button.addTarget(self, action:#selector(SingUpButtonTapped), for: .touchUpInside)
-        button.setAttributedTitle(NSAttributedString(string: "Sign Up", attributes: buttonAttributes), for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .mainColor
-        button.layer.cornerRadius = 10
         return button
     }()
     
