@@ -10,13 +10,11 @@ import FirebaseAuth
 import FirebaseDatabase
 
 protocol SignUpDelegate: AnyObject {
-    var username: String {get}
-    var mail: String {get}
-    var password: String {get}
+    func failedSingUp(title: String, message: String)
 }
 
 protocol SignUpViewModelProtocol {
-    func signUp() -> Void
+    func signUp(user: User) -> Void
 }
 
 final class SignUpViewModel {
@@ -24,10 +22,10 @@ final class SignUpViewModel {
 }
 
 extension SignUpViewModel: SignUpViewModelProtocol {
-    func signUp() {
-        guard let mail = delegate?.mail, mail.count > 0 else {return}
-        guard let password = delegate?.password, password.count > 0 else {return}
-        guard let username = delegate?.username else {return}
+    func signUp(user: User) {
+        let mail = user.email
+        let password = user.password
+        guard let username = user.username else {return}
         
         checkUsernameIsUnique(username) { isUnique in
             if isUnique {
@@ -36,15 +34,14 @@ extension SignUpViewModel: SignUpViewModelProtocol {
                         print(signUpError.localizedDescription)
                         return
                     }
-                    self.addUserDatabase(result)
+                    self.addUserDatabase(result, username: username)
                 }
             }
         }
     }
     
-    private func addUserDatabase(_ result: AuthDataResult?) {
+    private func addUserDatabase(_ result: AuthDataResult?, username: String) {
         guard let userUID = result?.user.uid else {return}
-        guard let username = delegate?.username else {return}
         
         let databaseRef = Database.database().reference()
         let data = ["username" : username]

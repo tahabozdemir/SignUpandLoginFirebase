@@ -10,6 +10,13 @@ import UIKit
 final class LoginViewController: UIViewController {
     let viewModelLogin = LoginViewModel()
     
+    private var user: User {
+        let mail = emailTextField.text  ?? ""
+        let password = passwordTextField.text ??  ""
+        let user = User(username: nil, email: mail, password: password)
+        return user
+    }
+    
     private let imageViewLogin: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "login")
@@ -39,6 +46,7 @@ final class LoginViewController: UIViewController {
     
     private let loginButton: MainUIButton = {
         let button = MainUIButton("Login")
+        button.addTarget(self, action:#selector(loginButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -83,6 +91,20 @@ final class LoginViewController: UIViewController {
         let signUpViewController = SingupViewController()
         signUpViewController.modalPresentationStyle = .fullScreen
         present(signUpViewController, animated: true)
+    }
+    
+    @objc func loginButtonTapped() {
+        let mailIsEmpty = user.email.isEmpty != true
+        let passwordIsEmpty = user.password.isEmpty != true
+        let isFormValid = mailIsEmpty && passwordIsEmpty
+        
+        if isFormValid {
+            viewModelLogin.login(user: user)
+        }
+        
+        else if !isFormValid {
+            failedLogin(title: "There Is Empty Field", message: "Please fill in the empty fields")
+        }
     }
     
     func setupStackViews() {
@@ -174,13 +196,18 @@ final class LoginViewController: UIViewController {
 }
 
 extension LoginViewController: LoginDelegate {
-    var mail: String {
-        guard let mail = emailTextField.text else {return ""}
-        return mail
+    func succesfullyLogin() {
+        let homeViewController = HomeViewController()
+        homeViewController.modalPresentationStyle = .fullScreen
+        homeViewController.modalTransitionStyle = .crossDissolve
+        present(homeViewController, animated: true)
+
     }
     
-    var password: String {
-        guard let password = passwordTextField.text else {return ""}
-        return password
+    func failedLogin(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "OK", style: .cancel)
+        alert.addAction(alertAction)
+        present(alert, animated: true)
     }
 }

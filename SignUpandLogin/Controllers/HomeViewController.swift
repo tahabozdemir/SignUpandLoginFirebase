@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class HomeViewController: UIViewController {
-    let welcomeLabel: UILabel = {
+    private let welcomeLabel: UILabel = {
         let label = UILabel()
         label.text = "Welcome to App"
         label.textColor = .black
@@ -17,9 +17,13 @@ class HomeViewController: UIViewController {
         return label
     }()
     
-    let logoutButton = MainUIButton("Logout")
+    private let logoutButton: MainUIButton = {
+        let button = MainUIButton("Logout")
+        button.addTarget(self, action: #selector(logoutButtonTapped), for: .touchUpInside)
+        return button
+    }()
     
-    func setupConstraints() {
+    private func setupConstraints() {
         welcomeLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.centerX.equalTo(view)
@@ -33,8 +37,12 @@ class HomeViewController: UIViewController {
         }
     }
     
+    @objc func logoutButtonTapped() {
+        dismiss(animated: true)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         view.addSubview(welcomeLabel)
         view.addSubview(logoutButton)
     }

@@ -9,12 +9,12 @@ import Foundation
 import FirebaseAuth
 
 protocol LoginDelegate: AnyObject {
-    var mail: String {get}
-    var password: String {get}
+    func succesfullyLogin()
+    func failedLogin(title: String, message: String)
 }
 
 protocol LoginViewModelProtocol {
-    func login() -> Void
+    func login(user: User) -> Void
 }
 
 final class LoginViewModel {
@@ -22,8 +22,21 @@ final class LoginViewModel {
 }
 
 extension LoginViewModel: LoginViewModelProtocol {
-    func login() {
-        print("Login")
+    func login(user: User) {
+        let mail = user.email
+        let password = user.password
+        
+        Auth.auth().signIn(withEmail: mail, password: password) { dataResult , dataError in
+            if let error = dataError {
+                print(error.localizedDescription)
+                self.delegate?.failedLogin(title: "Login Failed", message: "You have entered an invalid email or password.")
+                return
+            }
+            
+            if dataResult != nil {
+                self.delegate?.succesfullyLogin()
+            }
+        }
     }
     
 }

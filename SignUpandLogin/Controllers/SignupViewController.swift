@@ -11,6 +11,15 @@ import SnapKit
 final class SingupViewController: UIViewController {
     let viewModelSignUp = SignUpViewModel()
     
+    private var user: User {
+        let username = userNameTextField.text ?? ""
+        let mail = emailTextField.text  ?? ""
+        let password = passwordTextField.text ??  ""
+        let user = User(username: username, email: mail, password: password)
+        return user
+    }
+    
+    
     private let signUpLabel: UILabel = {
         let label = UILabel()
         label.text = "Sign Up"
@@ -34,7 +43,7 @@ final class SingupViewController: UIViewController {
     
     private let signUpButton: MainUIButton = {
         let button = MainUIButton("Sign Up")
-        button.addTarget(self, action:#selector(SingUpButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action:#selector(singUpButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -79,8 +88,20 @@ final class SingupViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    @objc func SingUpButtonTapped() {
-        viewModelSignUp.signUp()
+    @objc func singUpButtonTapped() {
+        let usernameIsEmpty = user.username?.isEmpty != true
+        let mailIsEmpty = user.email.isEmpty != true
+        let passwordIsEmpty = user.password.isEmpty != true
+        
+        let isFormValid = usernameIsEmpty && mailIsEmpty && passwordIsEmpty
+        
+        if isFormValid {
+            viewModelSignUp.signUp(user: user)
+        }
+        
+        else if !isFormValid {
+            failedSingUp(title: "There Is Empty Field", message: "Please fill in the empty fields")
+        }
     }
     
     func setupStackViews() {
@@ -148,18 +169,10 @@ final class SingupViewController: UIViewController {
 }
 
 extension SingupViewController: SignUpDelegate {
-    var username: String {
-        guard let username = userNameTextField.text else {return ""}
-        return username
-    }
-    
-    var mail: String {
-        guard let mail = emailTextField.text else {return ""}
-        return mail
-    }
-    
-    var password: String {
-        guard let password = passwordTextField.text else {return ""}
-        return password
+    func failedSingUp(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "OK", style: .cancel)
+        alert.addAction(alertAction)
+        present(alert, animated: true)
     }
 }
