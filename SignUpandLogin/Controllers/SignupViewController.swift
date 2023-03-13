@@ -7,9 +7,11 @@
 
 import UIKit
 import SnapKit
+import Firebase
 
 final class SingupViewController: UIViewController {
     let viewModelSignUp = SignUpViewModel()
+    let signUpService = SignInService()
     
     private var user: User {
         let username = userNameTextField.text ?? ""
@@ -18,7 +20,6 @@ final class SingupViewController: UIViewController {
         let user = User(username: username, email: mail, password: password)
         return user
     }
-    
     
     private let signUpLabel: UILabel = {
         let label = UILabel()
@@ -32,7 +33,6 @@ final class SingupViewController: UIViewController {
     private let emailTextField = BaseTextField(placeHolder: "Email", symbolName: "envelope", isSecureText: false)
     private let passwordTextField = BaseTextField(placeHolder: "Password", symbolName: "key.horizontal", isSecureText: true)
 
-    
     private var signUpStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -113,8 +113,28 @@ final class SingupViewController: UIViewController {
         loginStackView.addArrangedSubview(loginButton)
     }
     
+    func setupSignUpWith() {
+        let signInGoogleGR = UITapGestureRecognizer(target: self, action: #selector(signUpWithGoogle))
+        signUpWithStackView.googleUIView.addGestureRecognizer(signInGoogleGR)
+        signUpWithStackView.googleUIView.isUserInteractionEnabled = true
+    }
+    
+    @objc func signUpWithGoogle() {
+        signUpService.signInGoogle(viewController: self) { [weak self] in
+            
+            if let currentUser = Auth.auth().currentUser {
+                let homeViewController = HomeViewController()
+                homeViewController.modalPresentationStyle = .fullScreen
+                homeViewController.modalTransitionStyle = .crossDissolve
+                self?.present(homeViewController, animated: true)
+            }
+            else {
+                print("Asko valla ilk")
+            }
+        }
+    }
+    
     func setupConstarints() {
-        
         signUpLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(40)
             make.leading.equalTo(view.snp.leading).offset(30)
@@ -165,6 +185,7 @@ final class SingupViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         setupConstarints()
         setupStackViews()
+        setupSignUpWith()
     }
 }
 
