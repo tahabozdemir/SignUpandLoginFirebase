@@ -11,7 +11,6 @@ import Firebase
 
 final class SingupViewController: UIViewController {
     let viewModelSignUp = SignUpViewModel()
-    let signUpService = SignInService()
     
     private var user: User {
         let username = userNameTextField.text ?? ""
@@ -47,16 +46,6 @@ final class SingupViewController: UIViewController {
         return button
     }()
     
-    private let signUpWithLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Or sign up with..."
-        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        label.textColor = .lightGray
-        return label
-    }()
-    
-    private let signUpWithStackView = LoginWithUIStackView()
-    
     private let loginLabel: UILabel = {
         let label = UILabel()
         label.text = "Do you already have an account?"
@@ -69,7 +58,7 @@ final class SingupViewController: UIViewController {
         let button = UIButton()
         let buttonFont = UIFont.systemFont(ofSize: 15, weight: .bold)
         let buttonAttributes = [NSAttributedString.Key.font: buttonFont]
-        button.addTarget(self, action:#selector(goToSignUpViewController), for: .touchUpInside)
+        button.addTarget(self, action:#selector(goSignUpViewController), for: .touchUpInside)
         button.setAttributedTitle(NSAttributedString(string: "Login", attributes: buttonAttributes), for: .normal)
         button.setTitleColor(.mainColor, for: .normal)
         return button
@@ -83,8 +72,7 @@ final class SingupViewController: UIViewController {
         return stackView
     }()
     
-    
-    @objc func goToSignUpViewController() {
+    @objc func goSignUpViewController() {
         dismiss(animated: true)
     }
     
@@ -112,28 +100,7 @@ final class SingupViewController: UIViewController {
         loginStackView.addArrangedSubview(loginLabel)
         loginStackView.addArrangedSubview(loginButton)
     }
-    
-    func setupSignUpWith() {
-        let signInGoogleGR = UITapGestureRecognizer(target: self, action: #selector(signUpWithGoogle))
-        signUpWithStackView.googleUIView.addGestureRecognizer(signInGoogleGR)
-        signUpWithStackView.googleUIView.isUserInteractionEnabled = true
-    }
-    
-    @objc func signUpWithGoogle() {
-        signUpService.signInGoogle(viewController: self) { [weak self] in
-            
-            if let currentUser = Auth.auth().currentUser {
-                let homeViewController = HomeViewController()
-                homeViewController.modalPresentationStyle = .fullScreen
-                homeViewController.modalTransitionStyle = .crossDissolve
-                self?.present(homeViewController, animated: true)
-            }
-            else {
-                print("Asko valla ilk")
-            }
-        }
-    }
-    
+        
     func setupConstarints() {
         signUpLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(40)
@@ -153,17 +120,6 @@ final class SingupViewController: UIViewController {
             make.centerX.equalTo(view)
         }
         
-        signUpWithLabel.snp.makeConstraints { make in
-            make.top.equalTo(signUpButton.snp.bottom).offset(40)
-            make.centerX.equalTo(view)
-        }
-        
-        signUpWithStackView.snp.makeConstraints { make in
-            make.top.equalTo(signUpWithLabel.snp.bottom).offset(40)
-            make.width.equalTo(view).inset(30)
-            make.centerX.equalTo(view)
-        }
-        
         loginStackView.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.centerX.equalTo(view)
@@ -176,8 +132,6 @@ final class SingupViewController: UIViewController {
         view.addSubview(signUpLabel)
         view.addSubview(signUpStackView)
         view.addSubview(signUpButton)
-        view.addSubview(signUpWithLabel)
-        view.addSubview(signUpWithStackView)
         view.addSubview(loginStackView)
         viewModelSignUp.delegate = self
     }
@@ -185,7 +139,6 @@ final class SingupViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         setupConstarints()
         setupStackViews()
-        setupSignUpWith()
     }
 }
 
