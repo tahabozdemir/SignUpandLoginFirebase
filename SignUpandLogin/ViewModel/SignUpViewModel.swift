@@ -15,6 +15,8 @@ protocol SignUpDelegate: AnyObject {
 
 protocol SignUpViewModelProtocol {
     func signUp(user: User) -> Void
+    func addUserDatabase(username: String) -> Void
+    func checkUsernameIsUnique(_ username: String, completion: @escaping (Bool) -> Void) -> Void
 }
 
 final class SignUpViewModel {
@@ -34,22 +36,22 @@ extension SignUpViewModel: SignUpViewModelProtocol {
                         print(signUpError.localizedDescription)
                         return
                     }
-                    self.addUserDatabase(result, username: username)
+                    self.addUserDatabase(username: username)
                 }
             }
         }
     }
     
-    private func addUserDatabase(_ result: AuthDataResult?, username: String) {
-        guard let userUID = result?.user.uid else {return}
-        
+    func addUserDatabase(username: String) {
+        guard let userUID = Auth.auth().currentUser?.uid else { return }
+
         let databaseRef = Database.database().reference()
         let data = ["username" : username]
         let usersRef = databaseRef.child("users/\(userUID)")
         usersRef.setValue(data)
     }
     
-    private func checkUsernameIsUnique(_ username: String, completion: @escaping (Bool) -> Void) {
+    func checkUsernameIsUnique(_ username: String, completion: @escaping (Bool) -> Void) {
         let databaseRef = Database.database().reference()
         let usernameQuery = databaseRef.child("users").queryOrdered(byChild: "username").queryEqual(toValue: username)
         

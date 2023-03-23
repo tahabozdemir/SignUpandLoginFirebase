@@ -7,11 +7,11 @@
 
 import UIKit
 import SnapKit
+import Firebase
 
 class HomeViewController: UIViewController {
     private let welcomeLabel: UILabel = {
         let label = UILabel()
-        label.text = "Welcome to App"
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 32, weight: .semibold)
         return label
@@ -45,6 +45,7 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(welcomeLabel)
         view.addSubview(logoutButton)
+        welcomeLabel.text  = Auth.auth().currentUser?.uid
     }
     
     override func viewDidLayoutSubviews() {

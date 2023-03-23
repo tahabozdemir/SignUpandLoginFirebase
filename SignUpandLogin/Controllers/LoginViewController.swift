@@ -9,6 +9,7 @@ import UIKit
 
 final class LoginViewController: UIViewController {
     let viewModelLogin = LoginViewModel()
+    let signInService = SignInService()
     
     private var user: User {
         let mail = emailTextField.text  ?? ""
@@ -34,7 +35,7 @@ final class LoginViewController: UIViewController {
     }()
     
     private let emailTextField = BaseTextField(placeHolder: "Email", symbolName: "envelope", isSecureText: false)
-    let passwordTextField = BaseTextField(placeHolder: "Password", symbolName: "key.horizontal", isSecureText: true)
+    private let passwordTextField = BaseTextField(placeHolder: "Password", symbolName: "key.horizontal", isSecureText: true)
     
     private var loginStackView: UIStackView = {
         let stackView = UIStackView()
@@ -72,7 +73,7 @@ final class LoginViewController: UIViewController {
         let button = UIButton()
         let buttonFont = UIFont.systemFont(ofSize: 15, weight: .bold)
         let buttonAttributes = [NSAttributedString.Key.font: buttonFont]
-        button.addTarget(self, action:#selector(goToLoginViewController), for: .touchUpInside)
+        button.addTarget(self, action:#selector(goLoginViewController), for: .touchUpInside)
         button.setAttributedTitle(NSAttributedString(string: "Register", attributes: buttonAttributes), for: .normal)
         button.setTitleColor(.mainColor, for: .normal)
         return button
@@ -87,8 +88,8 @@ final class LoginViewController: UIViewController {
     }()
     
     
-    @objc func goToLoginViewController() {
-        let signUpViewController = SingupViewController()
+    @objc func goLoginViewController() {
+        let signUpViewController = SignUpViewController()
         signUpViewController.modalPresentationStyle = .fullScreen
         present(signUpViewController, animated: true)
     }
@@ -113,6 +114,16 @@ final class LoginViewController: UIViewController {
         
         registerStackView.addArrangedSubview(registerLabel)
         registerStackView.addArrangedSubview(registerButton)
+    }
+    
+    func setupSignInWith() {
+        let signInGoogleGR = UITapGestureRecognizer(target: self, action: #selector(signInWithGoogle))
+        loginWithStackView.googleUIView.addGestureRecognizer(signInGoogleGR)
+        loginWithStackView.googleUIView.isUserInteractionEnabled = true
+    }
+    
+    @objc func signInWithGoogle() {
+        signInService.signInGoogle(viewController: self)
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -175,6 +186,7 @@ final class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModelLogin.delegate = self
+        signInService.delegate = self
         view.addSubview(imageViewLogin)
         view.addSubview(loginLabel)
         view.addSubview(loginStackView)
@@ -187,6 +199,7 @@ final class LoginViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         setupConstarints()
         setupStackViews()
+        setupSignInWith()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -209,5 +222,21 @@ extension LoginViewController: LoginDelegate {
         let alertAction = UIAlertAction(title: "OK", style: .cancel)
         alert.addAction(alertAction)
         present(alert, animated: true)
+    }
+}
+
+extension LoginViewController: SignInServiceDelegate {
+    func signInFirst() {
+        let userNameRegisterViewController = UserNameRegisterViewController()
+        userNameRegisterViewController.modalPresentationStyle = .fullScreen
+        userNameRegisterViewController.modalTransitionStyle = .crossDissolve
+        present(userNameRegisterViewController, animated: true)
+    }
+    
+    func signInBefore() {
+        let homeViewController = HomeViewController()
+        homeViewController.modalPresentationStyle = .fullScreen
+        homeViewController.modalTransitionStyle = .crossDissolve
+        present(homeViewController, animated: true)
     }
 }

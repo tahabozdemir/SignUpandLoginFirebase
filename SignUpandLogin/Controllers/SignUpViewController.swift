@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SignUpViewController.swift
 //  SignUpandLogin
 //
 //  Created by Taha Bozdemir on 2.03.2023.
@@ -7,9 +7,8 @@
 
 import UIKit
 import SnapKit
-import Firebase
 
-final class SingupViewController: UIViewController {
+final class SignUpViewController: UIViewController {
     let viewModelSignUp = SignUpViewModel()
     
     private var user: User {
@@ -128,12 +127,12 @@ final class SingupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModelSignUp.delegate = self
         view.backgroundColor = .white
         view.addSubview(signUpLabel)
         view.addSubview(signUpStackView)
         view.addSubview(signUpButton)
         view.addSubview(loginStackView)
-        viewModelSignUp.delegate = self
     }
     
     override func viewDidLayoutSubviews() {
@@ -142,7 +141,7 @@ final class SingupViewController: UIViewController {
     }
 }
 
-extension SingupViewController: SignUpDelegate {
+extension SignUpViewController: SignUpDelegate {
     func failedSingUp(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let alertAction = UIAlertAction(title: "OK", style: .cancel)

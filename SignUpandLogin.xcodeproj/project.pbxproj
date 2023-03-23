@@ -21,9 +21,10 @@
 		0FAD1CB429B8C0D000F9ECF8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAD1CB329B8C0D000F9ECF8 /* LoginViewController.swift */; };
 		0FC8A63629B125C300045950 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC8A63529B125C300045950 /* AppDelegate.swift */; };
 		0FC8A63829B125C300045950 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC8A63729B125C300045950 /* SceneDelegate.swift */; };
-		0FC8A63A29B125C300045950 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC8A63929B125C300045950 /* SignupViewController.swift */; };
+		0FC8A63A29B125C300045950 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC8A63929B125C300045950 /* SignUpViewController.swift */; };
 		0FC8A63F29B125C500045950 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FC8A63E29B125C500045950 /* Assets.xcassets */; };
 		0FC8A64B29B1280200045950 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0FC8A64A29B1280200045950 /* SnapKit */; };
+		0FE3633A29CA6A3C005B4551 /* UserNameRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE3633929CA6A3C005B4551 /* UserNameRegisterViewController.swift */; };
 		0FF0D6FE29B8D72400D42D57 /* BaseTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF0D6FD29B8D72400D42D57 /* BaseTextField.swift */; };
 		0FF0D70129B8DDB300D42D57 /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF0D70029B8DDB300D42D57 /* Extension+UIColor.swift */; };
 		0FF0D70329B8FD3F00D42D57 /* LoginWithUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF0D70229B8FD3F00D42D57 /* LoginWithUIView.swift */; };
@@ -42,9 +43,10 @@
 		0FC8A63229B125C300045950 /* SignUpandLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SignUpandLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FC8A63529B125C300045950 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FC8A63729B125C300045950 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0FC8A63929B125C300045950 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		0FC8A63929B125C300045950 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		0FC8A63E29B125C500045950 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0FC8A64329B125C500045950 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0FE3633929CA6A3C005B4551 /* UserNameRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameRegisterViewController.swift; sourceTree = "<group>"; };
 		0FF0D6FD29B8D72400D42D57 /* BaseTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextField.swift; sourceTree = "<group>"; };
 		0FF0D70029B8DDB300D42D57 /* Extension+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
 		0FF0D70229B8FD3F00D42D57 /* LoginWithUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWithUIView.swift; sourceTree = "<group>"; };
@@ -129,9 +131,10 @@
 		0FAD1CB229B8C01700F9ECF8 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0FC8A63929B125C300045950 /* SignupViewController.swift */,
+				0FC8A63929B125C300045950 /* SignUpViewController.swift */,
 				0FAD1CB329B8C0D000F9ECF8 /* LoginViewController.swift */,
 				0F98CAD129BCF38800C6E3DA /* HomeViewController.swift */,
+				0FE3633929CA6A3C005B4551 /* UserNameRegisterViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -289,9 +292,10 @@
 				0FAD1CB429B8C0D000F9ECF8 /* LoginViewController.swift in Sources */,
 				0FF0D70729B91D0F00D42D57 /* LoginWithUIStackView.swift in Sources */,
 				0F8816F829BA1E9400EAA746 /* SignUpViewModel.swift in Sources */,
-				0FC8A63A29B125C300045950 /* SignupViewController.swift in Sources */,
+				0FC8A63A29B125C300045950 /* SignUpViewController.swift in Sources */,
 				0F98CAD629BCF71500C6E3DA /* MainUIButton.swift in Sources */,
 				0FF0D70129B8DDB300D42D57 /* Extension+UIColor.swift in Sources */,
+				0FE3633A29CA6A3C005B4551 /* UserNameRegisterViewController.swift in Sources */,
 				0FF0D6FE29B8D72400D42D57 /* BaseTextField.swift in Sources */,
 				0FF0D70329B8FD3F00D42D57 /* LoginWithUIView.swift in Sources */,
 				0FC8A63629B125C300045950 /* AppDelegate.swift in Sources */,
