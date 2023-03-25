@@ -73,7 +73,7 @@ final class LoginViewController: UIViewController {
         let button = UIButton()
         let buttonFont = UIFont.systemFont(ofSize: 15, weight: .bold)
         let buttonAttributes = [NSAttributedString.Key.font: buttonFont]
-        button.addTarget(self, action:#selector(goLoginViewController), for: .touchUpInside)
+        button.addTarget(self, action:#selector(goSignUpViewController), for: .touchUpInside)
         button.setAttributedTitle(NSAttributedString(string: "Register", attributes: buttonAttributes), for: .normal)
         button.setTitleColor(.mainColor, for: .normal)
         return button
@@ -88,7 +88,7 @@ final class LoginViewController: UIViewController {
     }()
     
     
-    @objc func goLoginViewController() {
+    @objc func goSignUpViewController() {
         let signUpViewController = SignUpViewController()
         signUpViewController.modalPresentationStyle = .fullScreen
         present(signUpViewController, animated: true)

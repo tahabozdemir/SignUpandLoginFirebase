@@ -43,9 +43,14 @@ class UserNameRegisterViewController: UIViewController {
                 let homeViewController = HomeViewController()
                 homeViewController.modalPresentationStyle = .fullScreen
                 homeViewController.modalTransitionStyle = .crossDissolve
-                self?.present(homeViewController, animated: true)
-            }
-            else {
+                
+                self?.dismiss(animated: false)
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let window = windowScene.windows.first {
+                    window.rootViewController?.present(homeViewController, animated: true)
+                }
+                
+            } else {
                 let alert = UIAlertController(title: "Taken Username", message: "This Username Taken Before", preferredStyle: .alert)
                 let alertAction = UIAlertAction(title: "OK", style: .cancel)
                 alert.addAction(alertAction)
