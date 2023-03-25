@@ -103,7 +103,7 @@ final class SignUpViewController: UIViewController {
     func setupConstarints() {
         signUpLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(40)
-            make.leading.equalTo(view.snp.leading).offset(30)
+            make.leading.equalTo(view).offset(30)
         }
         
         signUpStackView.snp.makeConstraints { make in
@@ -143,9 +143,11 @@ final class SignUpViewController: UIViewController {
 
 extension SignUpViewController: SignUpDelegate {
     func failedSingUp(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "OK", style: .cancel)
-        alert.addAction(alertAction)
-        present(alert, animated: true)
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "OK", style: .cancel)
+            alert.addAction(alertAction)
+            self.present(alert, animated: true)
+        }
     }
 }

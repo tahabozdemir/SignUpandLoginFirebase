@@ -34,7 +34,7 @@ extension LoginViewModel: LoginViewModelProtocol {
             }
             
             if dataResult != nil {
-                self.delegate?.succesfullyLogin()
+                    self.delegate?.succesfullyLogin()
             }
         }
     }

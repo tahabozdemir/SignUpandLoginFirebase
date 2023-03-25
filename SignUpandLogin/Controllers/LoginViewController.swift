@@ -89,9 +89,11 @@ final class LoginViewController: UIViewController {
     
     
     @objc func goSignUpViewController() {
-        let signUpViewController = SignUpViewController()
-        signUpViewController.modalPresentationStyle = .fullScreen
-        present(signUpViewController, animated: true)
+        DispatchQueue.main.async {
+            let signUpViewController = SignUpViewController()
+            signUpViewController.modalPresentationStyle = .fullScreen
+            self.present(signUpViewController, animated: true)
+        }
     }
     
     @objc func loginButtonTapped() {
@@ -150,7 +152,7 @@ final class LoginViewController: UIViewController {
         
         loginLabel.snp.makeConstraints { make in
             make.top.equalTo(imageViewLogin.snp.bottom).offset(40)
-            make.leading.equalTo(view.snp.leading).offset(30)
+            make.leading.equalTo(view).offset(30)
         }
         
         loginStackView.snp.makeConstraints { make in
@@ -210,33 +212,40 @@ final class LoginViewController: UIViewController {
 
 extension LoginViewController: LoginDelegate {
     func succesfullyLogin() {
-        let homeViewController = HomeViewController()
-        homeViewController.modalPresentationStyle = .fullScreen
-        homeViewController.modalTransitionStyle = .crossDissolve
-        present(homeViewController, animated: true)
-
+        DispatchQueue.main.async {
+            let homeViewController = HomeViewController()
+            homeViewController.modalPresentationStyle = .fullScreen
+            homeViewController.modalTransitionStyle = .crossDissolve
+            self.present(homeViewController, animated: true)
+        }
     }
     
     func failedLogin(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "OK", style: .cancel)
-        alert.addAction(alertAction)
-        present(alert, animated: true)
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "OK", style: .cancel)
+            alert.addAction(alertAction)
+            self.present(alert, animated: true)
+        }
     }
 }
 
 extension LoginViewController: SignInServiceDelegate {
     func signInFirst() {
-        let userNameRegisterViewController = UserNameRegisterViewController()
-        userNameRegisterViewController.modalPresentationStyle = .fullScreen
-        userNameRegisterViewController.modalTransitionStyle = .crossDissolve
-        present(userNameRegisterViewController, animated: true)
+        DispatchQueue.main.async {
+            let userNameRegisterViewController = UserNameRegisterViewController()
+            userNameRegisterViewController.modalPresentationStyle = .fullScreen
+            userNameRegisterViewController.modalTransitionStyle = .crossDissolve
+            self.present(userNameRegisterViewController, animated: true)
+        }
     }
     
     func signInBefore() {
-        let homeViewController = HomeViewController()
-        homeViewController.modalPresentationStyle = .fullScreen
-        homeViewController.modalTransitionStyle = .crossDissolve
-        present(homeViewController, animated: true)
+        DispatchQueue.main.async {
+            let homeViewController = HomeViewController()
+            homeViewController.modalPresentationStyle = .fullScreen
+            homeViewController.modalTransitionStyle = .crossDissolve
+            self.present(homeViewController, animated: true)
+        }
     }
 }

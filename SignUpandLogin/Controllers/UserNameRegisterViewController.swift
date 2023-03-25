@@ -44,21 +44,24 @@ class UserNameRegisterViewController: UIViewController {
         viewModelSignUp.checkUsernameIsUnique(username) { [weak self] isUnique in
             if isUnique {
                 self?.viewModelSignUp.addUserDatabase(username: username)
-                let homeViewController = HomeViewController()
-                homeViewController.modalPresentationStyle = .fullScreen
-                homeViewController.modalTransitionStyle = .crossDissolve
-                
-                self?.dismiss(animated: false)
-                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                   let window = windowScene.windows.first {
-                    window.rootViewController?.present(homeViewController, animated: true)
+                DispatchQueue.main.async {
+                    let homeViewController = HomeViewController()
+                    homeViewController.modalPresentationStyle = .fullScreen
+                    homeViewController.modalTransitionStyle = .crossDissolve
+                    self?.dismiss(animated: false)
+                    
+                    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                       let window = windowScene.windows.first {
+                        window.rootViewController?.present(homeViewController, animated: true)
+                    }
                 }
-                
             } else {
-                let alert = UIAlertController(title: "Taken Username", message: "This Username Taken Before", preferredStyle: .alert)
-                let alertAction = UIAlertAction(title: "OK", style: .cancel)
-                alert.addAction(alertAction)
-                self?.present(alert, animated: true)
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Taken Username", message: "This Username Taken Before", preferredStyle: .alert)
+                    let alertAction = UIAlertAction(title: "OK", style: .cancel)
+                    alert.addAction(alertAction)
+                    self?.present(alert, animated: true)
+                }
             }
         }
     }
@@ -66,7 +69,7 @@ class UserNameRegisterViewController: UIViewController {
     private func setupConstraints() {
         registerLabel.snp.makeConstraints { make in
             make.top.equalTo(backButton.snp.bottom).offset(20)
-            make.leading.equalTo(view.snp.leading).offset(30)
+            make.leading.equalTo(view).offset(30)
         }
         
         userNameTextField.snp.makeConstraints { make in
@@ -84,7 +87,7 @@ class UserNameRegisterViewController: UIViewController {
         
         backButton.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
-            make.leading.equalTo(view.snp.leading).offset(30)
+            make.leading.equalTo(view).offset(30)
         }
     }
     
