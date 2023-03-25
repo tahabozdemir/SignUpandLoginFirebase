@@ -19,7 +19,7 @@ class HomeViewController: UIViewController {
     
     private let logoutButton: MainUIButton = {
         let button = MainUIButton("Logout")
-        button.addTarget(self, action: #selector(logoutButtonTapped), for: .touchUpInside)
+        button.addTarget(HomeViewController.self, action: #selector(logoutButtonTapped), for: .touchUpInside)
         return button
     }()
     

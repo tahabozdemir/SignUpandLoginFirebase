@@ -10,23 +10,27 @@ import UIKit
 class UserNameRegisterViewController: UIViewController {
     let viewModelSignUp = SignUpViewModel()
     
-    private let welcomeLabel: UILabel = {
+    private let registerLabel: UILabel = {
         let label = UILabel()
-        label.text = "Please enter a username"
+        label.text = "Enter Username"
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 32, weight: .semibold)
         return label
     }()
     private let userNameTextField = BaseTextField(placeHolder: "Username", symbolName: "person", isSecureText: false)
     
-    private let logoutButton: MainUIButton = {
-        let button = MainUIButton("Logout")
+    private let backButton: UIButton = {
+        let button = UIButton()
+        let mediumConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .medium, scale: .medium)
+        let backImage = UIImage(systemName: "arrowshape.backward", withConfiguration: mediumConfig)
         button.addTarget(self, action: #selector(logoutButtonTapped), for: .touchUpInside)
+        button.setImage(backImage, for: .normal)
+        button.tintColor = .mainColor
         return button
     }()
     
     private let forwardButton: MainUIButton = {
-        let button = MainUIButton("Forward")
+        let button = MainUIButton("Next")
         button.addTarget(self, action: #selector(forwardButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -60,37 +64,36 @@ class UserNameRegisterViewController: UIViewController {
     }
     
     private func setupConstraints() {
-        welcomeLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-            make.centerX.equalTo(view)
+        registerLabel.snp.makeConstraints { make in
+            make.top.equalTo(backButton.snp.bottom).offset(20)
+            make.leading.equalTo(view.snp.leading).offset(30)
         }
         
         userNameTextField.snp.makeConstraints { make in
-            make.top.equalTo(welcomeLabel.snp.bottom).offset(30)
+            make.top.equalTo(registerLabel.snp.bottom).offset(30)
+            make.width.equalTo(view).inset(30)
             make.centerX.equalTo(view)
         }
         
         forwardButton.snp.makeConstraints { make in
-            make.top.equalTo(userNameTextField.snp.bottom).offset(20)
+            make.top.equalTo(userNameTextField.snp.bottom).offset(40)
             make.centerX.equalTo(view)
             make.width.equalTo(view).inset(30)
             make.height.equalTo(55)
         }
         
-        logoutButton.snp.makeConstraints { make in
-            make.top.equalTo(forwardButton.snp.bottom).offset(20)
-            make.centerX.equalTo(view)
-            make.width.equalTo(view).inset(30)
-            make.height.equalTo(55)
+        backButton.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
+            make.leading.equalTo(view.snp.leading).offset(30)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        view.addSubview(welcomeLabel)
+        view.addSubview(registerLabel)
         view.addSubview(userNameTextField)
-        view.addSubview(logoutButton)
+        view.addSubview(backButton)
         view.addSubview(forwardButton)
     }
     
