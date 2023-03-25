@@ -10,7 +10,7 @@ import FirebaseAuth
 import FirebaseDatabase
 
 protocol SignUpDelegate: AnyObject {
-    func failedSingUp(title: String, message: String)
+    func alertSingUp(title: String, message: String)
 }
 
 protocol SignUpViewModelProtocol {
@@ -31,12 +31,13 @@ extension SignUpViewModel: SignUpViewModelProtocol {
         
         checkUsernameIsUnique(username) { isUnique in
             if isUnique {
-                Auth.auth().createUser(withEmail: mail, password: password) { result, error in
+                Auth.auth().createUser(withEmail: mail, password: password) { [weak self] result, error in
                     if let signUpError = error {
                         print(signUpError.localizedDescription)
                         return
                     }
-                    self.addUserDatabase(username: username)
+                    self?.addUserDatabase(username: username)
+                    self?.delegate?.alertSingUp(title: "Successfully Registered", message: "You have successfully registered for the app")
                 }
             }
         }
@@ -55,9 +56,10 @@ extension SignUpViewModel: SignUpViewModelProtocol {
         let databaseRef = Database.database().reference()
         let usernameQuery = databaseRef.child("users").queryOrdered(byChild: "username").queryEqual(toValue: username)
         
-        usernameQuery.observeSingleEvent(of: .value) { snapshotUsername in
+        usernameQuery.observeSingleEvent(of: .value) { [weak self] snapshotUsername in
             if snapshotUsername.exists() {
                 completion(false)
+                self?.delegate?.alertSingUp(title: "Invalid Username", message: "This username was taken before")
                 return
             }
             completion(true)

@@ -87,7 +87,7 @@ final class SignUpViewController: UIViewController {
         }
         
         else if !isFormValid {
-            failedSingUp(title: "There Is Empty Field", message: "Please fill in the empty fields")
+            alertSingUp(title: "There Is Empty Field", message: "Please fill in the empty fields")
         }
     }
     
@@ -142,7 +142,7 @@ final class SignUpViewController: UIViewController {
 }
 
 extension SignUpViewController: SignUpDelegate {
-    func failedSingUp(title: String, message: String) {
+    func alertSingUp(title: String, message: String) {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             let alertAction = UIAlertAction(title: "OK", style: .cancel)

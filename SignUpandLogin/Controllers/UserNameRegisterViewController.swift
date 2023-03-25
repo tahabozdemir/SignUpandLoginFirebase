@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UserNameRegisterViewController: UIViewController {
+final class UserNameRegisterViewController: UIViewController {
     let viewModelSignUp = SignUpViewModel()
     
     private let registerLabel: UILabel = {
@@ -17,6 +17,7 @@ class UserNameRegisterViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 32, weight: .semibold)
         return label
     }()
+    
     private let userNameTextField = BaseTextField(placeHolder: "Username", symbolName: "person", isSecureText: false)
     
     private let backButton: UIButton = {
@@ -44,10 +45,12 @@ class UserNameRegisterViewController: UIViewController {
         viewModelSignUp.checkUsernameIsUnique(username) { [weak self] isUnique in
             if isUnique {
                 self?.viewModelSignUp.addUserDatabase(username: username)
+                
                 DispatchQueue.main.async {
                     let homeViewController = HomeViewController()
                     homeViewController.modalPresentationStyle = .fullScreen
                     homeViewController.modalTransitionStyle = .crossDissolve
+                    
                     self?.dismiss(animated: false)
                     
                     if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
@@ -55,9 +58,11 @@ class UserNameRegisterViewController: UIViewController {
                         window.rootViewController?.present(homeViewController, animated: true)
                     }
                 }
-            } else {
+            }
+            
+            else {
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Taken Username", message: "This Username Taken Before", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Invalid Username", message: "This username was taken before", preferredStyle: .alert)
                     let alertAction = UIAlertAction(title: "OK", style: .cancel)
                     alert.addAction(alertAction)
                     self?.present(alert, animated: true)
