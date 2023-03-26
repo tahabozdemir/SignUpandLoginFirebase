@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class LoginWithUIStackView: UIStackView {
+final class LoginWithUIStackView: UIStackView {
     func setupConstraints() {
         self.snp.makeConstraints { make in
             make.height.equalTo(60)

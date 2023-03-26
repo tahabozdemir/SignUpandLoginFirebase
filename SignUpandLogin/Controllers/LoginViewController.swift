@@ -35,8 +35,7 @@ final class LoginViewController: UIViewController {
     }()
     
     private let emailTextField = BaseTextField(placeHolder: "Email", symbolName: "envelope", isSecureText: false)
-    private let passwordTextField = BaseTextField(placeHolder: "Password", symbolName: "key.horizontal", isSecureText: true)
-    
+    private let passwordTextField = PasswordTextField()
     private var loginStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical

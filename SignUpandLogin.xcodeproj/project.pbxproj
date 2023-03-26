@@ -16,6 +16,7 @@
 		0F8816F629BA1E8400EAA746 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8816F529BA1E8400EAA746 /* LoginViewModel.swift */; };
 		0F8816F829BA1E9400EAA746 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8816F729BA1E9400EAA746 /* SignUpViewModel.swift */; };
 		0F8816FA29BA1EAC00EAA746 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8816F929BA1EAC00EAA746 /* User.swift */; };
+		0F97FB0F29D0B33000A4A9EE /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F97FB0E29D0B33000A4A9EE /* PasswordTextField.swift */; };
 		0F98CAD229BCF38800C6E3DA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F98CAD129BCF38800C6E3DA /* HomeViewController.swift */; };
 		0F98CAD629BCF71500C6E3DA /* MainUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F98CAD529BCF71500C6E3DA /* MainUIButton.swift */; };
 		0FAD1CB429B8C0D000F9ECF8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAD1CB329B8C0D000F9ECF8 /* LoginViewController.swift */; };
@@ -37,6 +38,7 @@
 		0F8816F529BA1E8400EAA746 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0F8816F729BA1E9400EAA746 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		0F8816F929BA1EAC00EAA746 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		0F97FB0E29D0B33000A4A9EE /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
 		0F98CAD129BCF38800C6E3DA /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0F98CAD529BCF71500C6E3DA /* MainUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUIButton.swift; sourceTree = "<group>"; };
 		0FAD1CB329B8C0D000F9ECF8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				0FF0D6FD29B8D72400D42D57 /* BaseTextField.swift */,
+				0F97FB0E29D0B33000A4A9EE /* PasswordTextField.swift */,
 			);
 			path = TextField;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 				0FC8A63829B125C300045950 /* SceneDelegate.swift in Sources */,
 				0F8816F629BA1E8400EAA746 /* LoginViewModel.swift in Sources */,
 				0F8816FA29BA1EAC00EAA746 /* User.swift in Sources */,
+				0F97FB0F29D0B33000A4A9EE /* PasswordTextField.swift in Sources */,
 				0F98CAD229BCF38800C6E3DA /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

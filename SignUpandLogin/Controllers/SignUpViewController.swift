@@ -29,7 +29,7 @@ final class SignUpViewController: UIViewController {
     
     private let userNameTextField = BaseTextField(placeHolder: "Username", symbolName: "person", isSecureText: false)
     private let emailTextField = BaseTextField(placeHolder: "Email", symbolName: "envelope", isSecureText: false)
-    private let passwordTextField = BaseTextField(placeHolder: "Password", symbolName: "key.horizontal", isSecureText: true)
+    private let passwordTextField = PasswordTextField()
 
     private var signUpStackView: UIStackView = {
         let stackView = UIStackView()

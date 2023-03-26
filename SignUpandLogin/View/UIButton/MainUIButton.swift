@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainUIButton: UIButton {
+final class MainUIButton: UIButton {
     init(_ title: String) {
         super.init(frame: CGRect.zero)
         let buttonFont = UIFont.systemFont(ofSize: 18, weight: .bold)

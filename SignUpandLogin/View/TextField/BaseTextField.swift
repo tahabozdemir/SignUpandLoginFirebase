@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class BaseTextField: UITextField {
-    let padding = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 0)
+    let padding = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 40)
     
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: padding)
@@ -27,7 +27,7 @@ class BaseTextField: UITextField {
         self.resignFirstResponder()
     }
     
-    func setupToolBar() {
+   private func setupToolBar() {
         let toolbar:UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: UIScreen.main.bounds.width, height: 30))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let doneButton: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonTapped))
@@ -35,7 +35,7 @@ class BaseTextField: UITextField {
         self.inputAccessoryView = toolbar
     }
     
-    public func addBottomLineTextField() {
+   private func addBottomLineTextField() {
         let bottomLineTextField = UIView()
         addSubview(bottomLineTextField)
         bottomLineTextField.backgroundColor = .lightGray
@@ -47,7 +47,7 @@ class BaseTextField: UITextField {
         }
     }
     
-    public func addSymbolTextField(_ symbolName: String) {
+    private func addSymbolTextField(_ symbolName: String) {
         let imageConfiguration = UIImage.SymbolConfiguration(scale: .large)
         let image = UIImage(systemName: symbolName, withConfiguration: imageConfiguration)
         let imageView = UIImageView()
