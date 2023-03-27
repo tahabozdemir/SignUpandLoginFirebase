@@ -173,7 +173,7 @@ final class LoginViewController: UIViewController {
         }
         
         loginWithStackView.snp.makeConstraints { make in
-            make.top.equalTo(loginWithLabel.snp.bottom).offset(30)
+            make.top.equalTo(loginWithLabel.snp.bottom).offset(10)
             make.width.equalTo(view).inset(30)
             make.centerX.equalTo(view)
         }
